@@ -34,3 +34,25 @@ VRChatで各アバターよりOSCを有効にすると、   `~\AppData\LocalLow\
 のディレクトリにjsonファイルができますので`public/json`配下にコピーしてください。  
 `ファイルを選択`ボタンより、コピーしたjsonファイルを選択し`読込`ボタンを押すとアバター個別の設定が反映されます。
 
+# Note
+
+- OSC送信用エンドポイント
+    - URI
+    ```
+    http://localhost:3000/send
+    ```
+    - リクエストヘッダ
+    ```
+    "Content-Type",
+    "application/json;charset=UTF-8"
+    ```
+
+    - リクエストボディ
+    ```
+    {
+      "addr" : "アバターのOSCアドレス",
+      "input" : value
+    }
+    ```
+    valueにはInt型、Float型、Boolがたを指定
+

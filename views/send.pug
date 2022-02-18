@@ -1,0 +1,63 @@
+content.send
+
+    h2 送信メッセージ一覧
+
+    ul
+      -
+      json_data.id
+      json_data.name
+      - var index = 0;
+      - var data_num = json_data.parameters.length;
+      each item in json_data.parameters
+        - var button_id = 'sendButton' + index;
+        - var input_id = 'input' + index;
+        - var sendaddr_id = 'sendaddr' + index;
+        - index++;
+        if item.input
+          li #{item.name} : #{item.input.type}
+            <form id="postform" method='post', action="/send">
+              <input id=#{sendaddr_id} type="text" name="addr" size="50" value=#{item.input.address} disabled>
+              <span/>
+              if item.input.type == "Float"
+                <input id=#{input_id} type="number" name="input" min="0" max="1" step="0.01" value=0>
+                <span/> (0.00 ..1.00)
+              else if item.input.type == "Int"
+                <input id=#{input_id} type="number" name="input" min="0" max="255" step="1" value=0>
+                <span/> (0..255)
+
+              else if item.input.type == "Bool"
+                <input id=#{input_id} type="checkbox" value=0>
+              <span/>
+              //- <input type="hidden" name="_method" value="PUT"> 
+              <input id=#{button_id} type="button" value="送信">
+            </form>
+            <br\>
+        else
+          li #{item.name} : Output only
+
+script.
+  for(var index = 0; index < #{data_num}; index++) {
+
+    var button_id = 'sendButton' + index;
+    var button = document.getElementById(button_id);
+    button.addEventListener('click', {id: index, handleEvent : sendButton});
+  }
+  function sendButton(index) {
+
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    var input = document.getElementById("input"+this.id);
+    var sendaddr = document.getElementById("sendaddr"+this.id);
+    if(input.type === "number") {
+      var value = input.value;
+    } else if(input.type === "checkbox") {
+      var value = input.checked;
+    }
+
+    xhr.open('POST', '/send');
+    xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhr.send(JSON.stringify({
+      "addr" : sendaddr.value,
+      "input" : Number(value)
+    }));
+  };

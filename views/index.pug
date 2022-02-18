@@ -1,0 +1,18 @@
+extends layout
+
+block file_select
+  h1= title
+
+  <form method='get', action="/" >
+    <input type="file" accept=".json" name="select"/>
+    <input type="submit" value="読込"/>
+  </form>
+  p ID    : <input id="send" type="text" name="addr" value=#{json_data.id} size="50" disabled>
+  p Name  : <input id="send" type="text" name="addr" value=#{json_data.name} size="50" disabled>
+
+
+//- block recv
+//-   include ./recv.pug
+
+block send
+  include ./send.pug

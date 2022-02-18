@@ -1,0 +1,19 @@
+content.recv 
+    h2 受信メッセージ
+    .
+        <iframe width="800" height="315" src="test.html" frameborder="1"></iframe>
+
+    //- ul
+    //-   -
+
+    //-   each item in json_data.parameters
+
+    //-     if item.output
+    //-       li #{item.name}
+    //-         <form method='put', action="/send">
+    //-           <input id=send" type="text" name="addr" value=#{item.output.address}/>
+    //-           <input type="submit" value="OK"/>
+    //-         </form>
+    //-         <br\>
+    //-     else
+    //-       li #{item.name} : Input only

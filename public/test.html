@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form>
+        <input type="button" value="start">
+    </form>
+    <p>ストップ</p>
+
+<script>
+    const button = document.querySelector('input[type="button"]');
+    const paragraph = document.querySelector('p');
+
+    button.addEventListener('click', updateButton);
+
+    function updateButton() {
+    if (button.value === 'マシンを起動') {
+        button.value = 'マシンを停止';
+        paragraph.textContent = 'マシンが起動しています！';
+    } else {
+        button.value = 'マシンを起動';
+        paragraph.textContent = 'マシンが停止しています。';
+    }
+}
+</script>
+</body>
+</html>
